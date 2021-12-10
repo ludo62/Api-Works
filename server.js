@@ -1,24 +1,24 @@
 require('dotenv').config();
 const express = require('express');
+const morgan = require('morgan');
 const mongoose = require('mongoose');
-const bodyParser = require('body-parser');
-const cookieParser = require('cookie-parser');
 const connectDB = require('./config/db');
-const errorHandler = require('./middleware/error');
 
 const app = express();
-app.use(cookieParser());
 app.use(express.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: false }));
+app.use(morgan('dev'));
+
+
+// Authentification users
+app.use('/auth', require('./routes/auth.route'));
+// Authentification Admin
+app.use('/admin', require('./routes/admin.route'));
+// ALert
+app.use('/post', require('./routes/alert.route'));
 
 
 
-
-app.use('/auth', require('./routes/auth'));
-app.use('/api/private', require('./routes/private'));
-
-// Error handler
-app.use(errorHandler);
 
 const PORT = process.env.PORT;
 

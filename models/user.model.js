@@ -1,7 +1,6 @@
-const crypto = require('crypto');
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
+const { roles } = require('../utils/constants');
 
 const userSchema = new mongoose.Schema(
 	{
@@ -56,8 +55,11 @@ const userSchema = new mongoose.Schema(
 			minlength: 3,
 			maxlength: 255,
 		},
-		resetPasswordToken: String,
-		resetPasswordExpires: Date,
+		role: {
+			type: String,
+			enum: ['admin', 'moderator', 'user'],
+			default: 'user',
+		},
 	},
 	{
 		timestamps: true,
@@ -65,22 +67,25 @@ const userSchema = new mongoose.Schema(
 );
 
 userSchema.pre('save', async function (next) {
-	if (!this.isModified('password')) {
-		next();
+	try {
+		if (this.isNew) {
+			const salt = await bcrypt.genSalt(12);
+			const hashedPassword = await bcrypt.hash(this.password, salt);
+			this.password = hashedPassword;
+			if (
+				(this.email === process.env.ADMIN_EMAIL,
+				this.password === process.env.ADMIN_PASSWORD)
+			) {
+				this.role = roles.admin;
+			}
+		}
+	} catch (error) {
+		next(error);
 	}
-
-	const salt = await bcrypt.genSalt(10);
-	this.password = await bcrypt.hash(this.password, salt);
 });
 
 userSchema.methods.matchPasswords = async function (password) {
 	return await bcrypt.compare(password, this.password);
-};
-
-userSchema.methods.getSignedToken = function () {
-	return jwt.sign({ id: this._id }, process.env.JWT_SECRET, {
-		expiresIn: process.env.JWT_EXPIRE,
-	});
 };
 
 module.exports = mongoose.model('User', userSchema);
