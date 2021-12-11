@@ -9,16 +9,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(morgan('dev'));
 
-
 // Authentification users
 app.use('/auth', require('./routes/auth.route'));
-// Authentification Admin
-app.use('/admin', require('./routes/admin.route'));
-// ALert
-app.use('/post', require('./routes/alert.route'));
-
-
-
 
 const PORT = process.env.PORT;
 

@@ -60,6 +60,13 @@ const userSchema = new mongoose.Schema(
 			enum: ['admin', 'moderator', 'user'],
 			default: 'user',
 		},
+		alerts: [
+			{
+				type: mongoose.Schema.Types.ObjectId,
+				ref: 'Alert',
+				require: [true, 'Merci de renseigner une alert'],
+			},
+		],
 	},
 	{
 		timestamps: true,
