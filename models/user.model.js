@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
-const { roles } = require('../utils/constants');
+const { isEmail } = require('validator');
 
 const userSchema = new mongoose.Schema(
 	{
@@ -41,6 +41,7 @@ const userSchema = new mongoose.Schema(
 				/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
 				'Merci de fournir un email valide',
 			],
+			validate: [isEmail, 'Merci de fournir un email valide'],
 			unique: true,
 		},
 		phone: {
@@ -60,13 +61,22 @@ const userSchema = new mongoose.Schema(
 			enum: ['admin', 'moderator', 'user'],
 			default: 'user',
 		},
-		alerts: [
-			{
-				type: mongoose.Schema.Types.ObjectId,
-				ref: 'Alert',
-				require: [true, 'Merci de renseigner une alert'],
-			},
-		],
+		category: {
+			type: [String],
+		},
+		message: {
+			type: [String],
+		},
+		horaire: {
+			type: [String],
+		},
+		address: {
+			type: [String],
+		},
+		picture: {
+			type: String,
+			default: '',
+		},
 	},
 	{
 		timestamps: true,
@@ -79,12 +89,6 @@ userSchema.pre('save', async function (next) {
 			const salt = await bcrypt.genSalt(12);
 			const hashedPassword = await bcrypt.hash(this.password, salt);
 			this.password = hashedPassword;
-			if (
-				(this.email === process.env.ADMIN_EMAIL,
-				this.password === process.env.ADMIN_PASSWORD)
-			) {
-				this.role = roles.admin;
-			}
 		}
 	} catch (error) {
 		next(error);
