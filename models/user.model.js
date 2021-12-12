@@ -56,27 +56,6 @@ const userSchema = new mongoose.Schema(
 			minlength: 3,
 			maxlength: 255,
 		},
-		role: {
-			type: String,
-			enum: ['admin', 'moderator', 'user'],
-			default: 'user',
-		},
-		category: {
-			type: [String],
-		},
-		message: {
-			type: [String],
-		},
-		horaire: {
-			type: [String],
-		},
-		address: {
-			type: [String],
-		},
-		picture: {
-			type: String,
-			default: '',
-		},
 	},
 	{
 		timestamps: true,
