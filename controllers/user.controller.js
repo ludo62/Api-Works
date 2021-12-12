@@ -1,5 +1,5 @@
 const UserModel = require('../models/user.model');
-const objectID = require('mongoose').ObjectID;
+const ObjectID = require('mongoose').ObjectID;
 
 module.exports.getAllUsers = async (req, res) => {
 	const users = await UserModel.find().select('-password');

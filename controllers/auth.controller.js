@@ -29,9 +29,8 @@ module.exports.registerAdmin = async (req, res) => {
 };
 // admin login
 
-
-
-
+// Register Moderators
+// Login Moderators
 
 // User register
 module.exports.signUp = async (req, res) => {
