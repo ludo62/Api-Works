@@ -115,3 +115,25 @@ module.exports.registerUser = async (req, res) => {
 		res.status(400).json({ error: error.message });
 	}
 };
+
+// User login
+module.exports.loginUser = async (req, res) => {
+	const { email, password } = req.body;
+	try {
+		const user = await UserModel.findOne({ email });
+		if (!user) {
+			return res.status(401).json({
+				message: 'Email ou mot de passe incorrect',
+			});
+		}
+		res.status(200).json({
+			message: 'Connexion réussie',
+			user: user,
+		});
+	} catch (error) {
+		res.status(400).json({ error: error.message });
+	}
+}
+
+
+

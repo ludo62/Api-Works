@@ -12,9 +12,7 @@ router.post('/login-moderator', authController.loginModerator);
 
 // auth user
 router.post('/register', authController.registerUser);
+router.post('/login', authController.loginUser);
 
-// user display: 'block
-router.get('/', userController.getAllUsers);
-router.get('/:id', userController.userInfo);
 
 module.exports = router;
