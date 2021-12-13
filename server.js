@@ -2,8 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
-const userRoutes = require('./routes/user.routes');
-const alertRoutes = require('./routes/alert.routes');
+const authRoutes = require('./routes/auth.routes');
 const mongoose = require('mongoose');
 const connectDB = require('./config/db');
 
@@ -14,8 +13,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(morgan('dev'));
 
 // Routes
-app.use('/api/user', userRoutes);
-app.use('/api/post', alertRoutes);
+app.use('/', authRoutes);
+
+
+
 
 const PORT = process.env.PORT;
 

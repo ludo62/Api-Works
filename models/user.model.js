@@ -56,6 +56,7 @@ const userSchema = new mongoose.Schema(
 			minlength: 3,
 			maxlength: 255,
 		},
+		alerts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Alert' }],
 	},
 	{
 		timestamps: true,

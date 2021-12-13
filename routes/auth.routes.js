@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const authController = require('../controllers/auth.controller');
-const userController = require('../controllers/user.controller');
+
 
 // auth admin
 router.post('/register-admin', authController.registerAdmin);

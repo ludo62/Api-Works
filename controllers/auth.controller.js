@@ -1,7 +1,6 @@
 const UserModel = require('../models/user.model');
 const AdminModel = require('../models/admin.model');
 const ModeratorModel = require('../models/moderator.model');
-const jwt = require('jsonwebtoken');
 
 // Register admin
 module.exports.registerAdmin = async (req, res) => {
@@ -29,15 +28,15 @@ module.exports.registerAdmin = async (req, res) => {
 // Login admin
 module.exports.loginAdmin = async (req, res) => {
 	const { email, password } = req.body;
-	AdminModel.findOne({ email }, (err, admin) => {
+	const users = await UserModel.find().select('-password');
+	res.status(200).json({ users });
+	AdminModel.findOne({ email }, (users) => {
 		if (email === process.env.ADMIN_EMAIL && password === process.env.ADMIN_PASSWORD) {
-			return res.status(200).json({
-				message: 'Connexion réussie',
-				admin: admin,
-			});
+			return res.status(200).json({ message: 'Connexion réussie', users });
 		} else {
 			return res.status(401).json({
 				message: 'Email ou mot de passe incorrect',
+				users,
 			});
 		}
 	});
@@ -77,7 +76,9 @@ module.exports.registerModerator = async (req, res) => {
 // Login Moderators
 module.exports.loginModerator = async (req, res) => {
 	const { email, password } = req.body;
-	ModeratorModel.findOne({ email }, (err, moderator) => {
+	const users = await UserModel.find().select('-password');
+	res.status(200).json({ users });
+	ModeratorModel.findOne({ email }, (users, moderator) => {
 		if (!email || !password) {
 			return res.status(401).json({
 				message: 'Email ou mot de passe incorrect',
@@ -90,7 +91,7 @@ module.exports.loginModerator = async (req, res) => {
 		}
 		return res.status(200).json({
 			message: 'Connexion réussie',
-			moderator: moderator,
+			users,
 		});
 	});
 };
@@ -128,12 +129,8 @@ module.exports.loginUser = async (req, res) => {
 		}
 		res.status(200).json({
 			message: 'Connexion réussie',
-			user: user,
 		});
 	} catch (error) {
 		res.status(400).json({ error: error.message });
 	}
-}
-
-
-
+};
