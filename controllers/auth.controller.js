@@ -1,33 +1,47 @@
 const UserModel = require('../models/user.model');
 const AdminModel = require('../models/admin.model');
+const jwt = require('jsonwebtoken');
 
-// Admin register
+// Register admin
 module.exports.registerAdmin = async (req, res) => {
-	const email = process.env.ADMIN_EMAIL;
-	const password = process.env.ADMIN_PASSWORD;
-	try {
-		const admin = await AdminModel.findOne({ email });
-		if (admin) {
-			return res.status(400).json({
-				message: "Vous n'avez pas d'autorisation pour acceder a ce compte",
+	const { email, password } = req.body;
+	const admin = new AdminModel({ email, password });
+
+	if (email === process.env.ADMIN_EMAIL && password === process.env.ADMIN_PASSWORD) {
+		admin.save((err, admin) => {
+			if (err) {
+				return res.status(500).json({
+					message: 'Le compte administrateur existe déjà',
+					error: err,
+				});
+			}
+			return res.status(201).json({
+				message: 'Compte administrateur créé',
+				admin: admin,
 			});
-		}
-		const newAdmin = new AdminModel({
-			email,
-			password,
 		});
-		await newAdmin.save();
-		return res.status(201).json({
-			message: "Enregistrement de l'administrateur reussi",
-			admin: newAdmin._id,
-		});
-	} catch (error) {
-		return res.status(500).json({
-			message: 'Erreur Serveur',
+	} else {
+		return res.status(401).json({
+			message: "vous n'êtes pas autorisé à créer un compte administrateur",
 		});
 	}
 };
-// admin login
+// Login admin
+module.exports.loginAdmin = async (req, res) => {
+	const { email, password } = req.body;
+	AdminModel.findOne({ email }, (err, admin) => {
+		if (email === process.env.ADMIN_EMAIL && password === process.env.ADMIN_PASSWORD) {
+			return res.status(200).json({
+				message: 'Connexion réussie',
+				admin: admin,
+			});
+		} else {
+			return res.status(401).json({
+				message: 'Email ou mot de passe incorrect',
+			});
+		}
+	});
+};
 
 // Register Moderators
 // Login Moderators
