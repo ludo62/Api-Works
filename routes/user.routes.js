@@ -6,8 +6,12 @@ const userController = require('../controllers/user.controller');
 router.post('/register-admin', authController.registerAdmin);
 router.post('/login-admin', authController.loginAdmin);
 
+// auth moderator
+router.post('/register-moderator', authController.registerModerator);
+router.post('/login-moderator', authController.loginModerator);
+
 // auth user
-router.post('/register', authController.signUp);
+router.post('/register', authController.registerUser);
 
 // user display: 'block
 router.get('/', userController.getAllUsers);

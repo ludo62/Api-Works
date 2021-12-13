@@ -1,5 +1,6 @@
 const UserModel = require('../models/user.model');
 const AdminModel = require('../models/admin.model');
+const ModeratorModel = require('../models/moderator.model');
 const jwt = require('jsonwebtoken');
 
 // Register admin
@@ -12,7 +13,6 @@ module.exports.registerAdmin = async (req, res) => {
 			if (err) {
 				return res.status(500).json({
 					message: 'Le compte administrateur existe déjà',
-					error: err,
 				});
 			}
 			return res.status(201).json({
@@ -44,10 +44,59 @@ module.exports.loginAdmin = async (req, res) => {
 };
 
 // Register Moderators
+module.exports.registerModerator = async (req, res) => {
+	const { name, address, postalCode, city, phone, email, password } = req.body;
+	const moderator = new ModeratorModel({
+		name,
+		address,
+		postalCode,
+		city,
+		phone,
+		email,
+		password,
+	});
+	if ((name, address, postalCode, city, phone, email, password)) {
+		moderator.save((err, moderator) => {
+			if (err) {
+				return res.status(500).json({
+					message: 'Le compte modérateur existe déjà',
+				});
+			}
+			return res.status(201).json({
+				message: 'Compte modérateur créé',
+				moderator: moderator,
+			});
+		});
+	} else {
+		return res.status(401).json({
+			message: "vous n'êtes pas autorisé à créer un compte modérateur",
+		});
+	}
+};
+
 // Login Moderators
+module.exports.loginModerator = async (req, res) => {
+	const { email, password } = req.body;
+	ModeratorModel.findOne({ email }, (err, moderator) => {
+		if (!email || !password) {
+			return res.status(401).json({
+				message: 'Email ou mot de passe incorrect',
+			});
+		}
+		if (!moderator) {
+			return res.status(401).json({
+				message: 'Email ou mot de passe incorrect',
+			});
+		}
+		return res.status(200).json({
+			message: 'Connexion réussie',
+			moderator: moderator,
+		});
+	});
+};
 
 // User register
-module.exports.signUp = async (req, res) => {
+module.exports.registerUser = async (req, res) => {
 	const { firstName, lastName, address, postalCode, city, email, phone, password } = req.body;
 
 	try {
