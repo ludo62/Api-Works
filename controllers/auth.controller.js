@@ -2,7 +2,6 @@ const UserModel = require('../models/user.model');
 const AdminModel = require('../models/admin.model');
 const ModeratorModel = require('../models/moderator.model');
 
-
 // Register admin
 module.exports.registerAdmin = async (req, res) => {
 	const { email, password } = req.body;
@@ -81,10 +80,16 @@ module.exports.loginModerator = async (req, res) => {
 };
 // User register
 module.exports.registerUser = async (req, res) => {
-	const { email, password } = req.body;
+	const { firstName, lastName, address, postalCode, city, phone, email, password } = req.body;
 
 	try {
 		const user = await UserModel.create({
+			firstName,
+			lastName,
+			address,
+			postalCode,
+			city,
+			phone,
 			email,
 			password,
 		});

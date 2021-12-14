@@ -1,24 +1,43 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const { isEmail } = require('validator');
+const ObjectID = mongoose.Schema.Types.ObjectId;
 
 const userSchema = new mongoose.Schema(
 	{
+		firstName: {
+			type: String,
+			required: true,
+		},
+		lastName: {
+			type: String,
+			required: true,
+		},
+		address: {
+			type: String,
+			required: true,
+		},
+		postalCode: {
+			type: String,
+			required: true,
+		},
+		city: {
+			type: String,
+			required: true,
+		},
+		phone: {
+			type: String,
+			required: true,
+		},
 		email: {
 			type: String,
-			required: [true, 'Merci de renseigner votre email'],
-			match: [
-				/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-				'Merci de fournir un email valide',
-			],
-			validate: [isEmail, 'Merci de fournir un email valide'],
+			required: true,
 			unique: true,
+			validate: [isEmail, 'Merci de renseigner une adresse email valide'],
 		},
 		password: {
 			type: String,
-			required: [true, 'Merci de fournir un mot de passe'],
-			minlength: 3,
-			maxlength: 255,
+			required: true,
 		},
 	},
 	{

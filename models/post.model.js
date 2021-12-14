@@ -2,35 +2,16 @@ const mongoose = require('mongoose');
 
 const PostSchema = new mongoose.Schema(
 	{
-		firstName: {
+		type: {
 			type: String,
 			required: true,
 		},
-		lastName: {
+		description: {
 			type: String,
-			required: true,
+			required: true,	
 		},
 		address: {
 			type: String,
-			required: true,
-		},
-		postalCode: {
-			type: String,
-			required: true,
-		},
-		city: {
-			type: String,
-			required: true,
-		},
-		alert: {
-			type: [
-				{
-					alertId: String,
-					type: String,
-					description: String,
-					timestamp: Number,
-				},
-			],
 			required: true,
 		},
 	},
