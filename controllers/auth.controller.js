@@ -2,6 +2,7 @@ const UserModel = require('../models/user.model');
 const AdminModel = require('../models/admin.model');
 const ModeratorModel = require('../models/moderator.model');
 
+
 // Register admin
 module.exports.registerAdmin = async (req, res) => {
 	const { email, password } = req.body;
@@ -37,7 +38,6 @@ module.exports.loginAdmin = async (req, res) => {
 		});
 	}
 };
-
 // Register Moderators
 module.exports.registerModerator = async (req, res) => {
 	const { name, address, postalCode, city, phone, email, password } = req.body;
@@ -68,7 +68,6 @@ module.exports.registerModerator = async (req, res) => {
 		});
 	}
 };
-
 // Login Moderators
 module.exports.loginModerator = async (req, res) => {
 	const { email, password } = req.body;
@@ -80,7 +79,6 @@ module.exports.loginModerator = async (req, res) => {
 		return res.status(200).json({ message: 'Connexion réussie' });
 	}
 };
-
 // User register
 module.exports.registerUser = async (req, res) => {
 	const { email, password } = req.body;
@@ -95,7 +93,6 @@ module.exports.registerUser = async (req, res) => {
 		res.status(400).json({ error: error.message });
 	}
 };
-
 // User login
 module.exports.loginUser = async (req, res) => {
 	const { email, password } = req.body;
