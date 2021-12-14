@@ -28,18 +28,14 @@ module.exports.registerAdmin = async (req, res) => {
 // Login admin
 module.exports.loginAdmin = async (req, res) => {
 	const { email, password } = req.body;
-	const users = await UserModel.find().select('-password');
-	res.status(200).json({ users });
-	AdminModel.findOne({ email }, (users) => {
-		if (email === process.env.ADMIN_EMAIL && password === process.env.ADMIN_PASSWORD) {
-			return res.status(200).json({ message: 'Connexion réussie', users });
-		} else {
-			return res.status(401).json({
-				message: 'Email ou mot de passe incorrect',
-				users,
-			});
-		}
-	});
+	if (email === process.env.ADMIN_EMAIL && password === process.env.ADMIN_PASSWORD) {
+		return res.status(200).json({ message: 'Connexion réussie' });
+	} else {
+		return res.status(401).json({
+			message: 'Email ou mot de passe incorrect',
+			users,
+		});
+	}
 };
 
 // Register Moderators
@@ -76,39 +72,22 @@ module.exports.registerModerator = async (req, res) => {
 // Login Moderators
 module.exports.loginModerator = async (req, res) => {
 	const { email, password } = req.body;
-	const users = await UserModel.find().select('-password');
-	res.status(200).json({ users });
-	ModeratorModel.findOne({ email }, (users, moderator) => {
-		if (!email || !password) {
-			return res.status(401).json({
-				message: 'Email ou mot de passe incorrect',
-			});
-		}
-		if (!moderator) {
-			return res.status(401).json({
-				message: 'Email ou mot de passe incorrect',
-			});
-		}
-		return res.status(200).json({
-			message: 'Connexion réussie',
-			users,
+	if (!email || !password) {
+		return res.status(401).json({
+			message: 'Email ou mot de passe incorrect',
 		});
-	});
+	} else {
+		return res.status(200).json({ message: 'Connexion réussie' });
+	}
 };
 
 // User register
 module.exports.registerUser = async (req, res) => {
-	const { firstName, lastName, address, postalCode, city, email, phone, password } = req.body;
+	const { email, password } = req.body;
 
 	try {
 		const user = await UserModel.create({
-			firstName,
-			lastName,
-			address,
-			postalCode,
-			city,
 			email,
-			phone,
 			password,
 		});
 		res.status(201).json({ user: user._id });
@@ -120,8 +99,16 @@ module.exports.registerUser = async (req, res) => {
 // User login
 module.exports.loginUser = async (req, res) => {
 	const { email, password } = req.body;
+
+	if (!email || !password) {
+		return res.status(401).json({
+			message: 'Email ou mot de passe incorrect',
+		});
+	}
+
 	try {
-		const user = await UserModel.findOne({ email });
+		const user = await UserModel.findOne({ email }).select('-password');
+
 		if (!user) {
 			return res.status(401).json({
 				message: 'Email ou mot de passe incorrect',
