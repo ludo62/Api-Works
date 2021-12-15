@@ -5,8 +5,8 @@ const userController = require('../controllers/user.controller');
 router.get('/admin-read-users', userController.getAllUsers);
 
 // Admin Routes for Moderator
-//router.get('/admin-read-moderator', userController.getAllModerators);
-//router.post('/admin-create-moderator', userController.createModerator);
+router.get('/admin-read-moderator', userController.getAllModerators);
+router.post('/admin-create-moderator', userController.createModerator);
 
 // Moderator Routes for Profil
 //router.get('/moderator-profile', userController.getProfile);

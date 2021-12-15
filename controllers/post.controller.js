@@ -2,7 +2,26 @@ const PostModel = require('../models/post.model');
 const UserModel = require('../models/user.model');
 const ObjectID = require('mongoose').Types.ObjectId;
 
-// Create a new post
+// Post with admin
+
+// post with moderator
+
+// read post with user
+module.exports.readPost = async (req, res) => {
+	const user = await UserModel.findOne({ _id: req.params.id });
+	const post = await PostModel.find({});
+	if (user) {
+		res.status(200).json({
+			message: 'Post',
+			post,
+		});
+	} else {
+		res.status(401).json({
+			message: 'Veuillez vous connecter pour voir les posts',
+		});
+	}
+};
+// Create a new post with user
 module.exports.createPost = async (req, res) => {
 	const newPost = new PostModel({
 		firstName: req.body.firstName,
