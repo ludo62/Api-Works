@@ -80,18 +80,14 @@ module.exports.loginModerator = async (req, res) => {
 };
 // User register
 module.exports.registerUser = async (req, res) => {
-	const { firstName, lastName, address, postalCode, city, phone, email, password } = req.body;
+	const { email, password, } =
+		req.body;
 
 	try {
 		const user = await UserModel.create({
-			firstName,
-			lastName,
-			address,
-			postalCode,
-			city,
-			phone,
 			email,
 			password,
+		
 		});
 		res.status(201).json({ user: user._id });
 	} catch (error) {

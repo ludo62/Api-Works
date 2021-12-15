@@ -1,7 +1,5 @@
 const router = require('express').Router();
 const userController = require('../controllers/user.controller');
-const authController = require('../controllers/auth.controller');
-const postController = require('../controllers/post.controller');
 
 // Admin Routes for User
 router.get('/admin-read-users', userController.getAllUsers);
@@ -19,11 +17,10 @@ router.get('/admin-read-users', userController.getAllUsers);
 
 // User Routes for Profile
 //router.get('/profile', userController.getProfile);
-//router.post('/profile-create', userController.createProfile);
+
 //router.update('/profile/:id', userController.updateProfile);
 //router.delete('/profile/:id', userController.deleteProfile);
 
-// User Routes for post
-router.post('/post/:id', userController.createPost);
-
+// User
+//router.get('/profile', userController.getProfile);
 module.exports = router;

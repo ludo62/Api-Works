@@ -2,15 +2,39 @@ const mongoose = require('mongoose');
 
 const PostSchema = new mongoose.Schema(
 	{
+		firstName: {
+			type: String,
+			required: true,
+		},
+		lastName: {
+			type: String,
+			required: true,
+		},
+		address: {
+			type: String,
+			required: true,
+		},
+		postalCode: {
+			type: String,
+			required: true,
+		},
+		city: {
+			type: String,
+			required: true,
+		},
+		phone: {
+			type: String,
+			required: true,
+		},
 		type: {
 			type: String,
 			required: true,
 		},
 		description: {
 			type: String,
-			required: true,	
+			required: true,
 		},
-		address: {
+		address_alert: {
 			type: String,
 			required: true,
 		},
@@ -20,4 +44,4 @@ const PostSchema = new mongoose.Schema(
 	}
 );
 
-module.exports = mongoose.model('Alert', PostSchema);
+module.exports = mongoose.model('post', PostSchema);

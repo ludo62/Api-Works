@@ -3,8 +3,8 @@ const express = require('express');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const authRoutes = require('./routes/auth.routes');
-const postRoutes = require('./routes/post.routes');
 const userRoutes = require('./routes/user.routes');
+const postRoutes = require('./routes/post.routes');
 const mongoose = require('mongoose');
 const connectDB = require('./config/db');
 
@@ -16,8 +16,8 @@ app.use(morgan('dev'));
 
 // Routes
 app.use('/', authRoutes);
-app.use('/', postRoutes);
 app.use('/', userRoutes);
+app.use('/', postRoutes);
 
 
 const PORT = process.env.PORT;
