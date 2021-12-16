@@ -32,3 +32,6 @@ const start = async () => {
 	}
 };
 start();
+
+
+// TODO EMAIL CONFIGURATION AND PICTURE WITH ALERT

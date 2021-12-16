@@ -55,7 +55,6 @@ module.exports.CreatePostAdmin = async (req, res) => {
 		});
 	}
 };
-
 // post with moderator
 module.exports.readPostModerator = async (req, res) => {
 	const moderator = await ModeratorModel.findOne({ _id: req.params.id });
@@ -108,7 +107,6 @@ module.exports.createPostModerator = async (req, res) => {
 		});
 	}
 };
-
 // Post with user
 module.exports.readPost = async (req, res) => {
 	const user = await UserModel.findOne({ _id: req.params.id });
@@ -124,7 +122,6 @@ module.exports.readPost = async (req, res) => {
 		});
 	}
 };
-
 module.exports.createPost = async (req, res) => {
 	const user = await UserModel.findOne({ _id: req.params.id });
 	if (user) {
