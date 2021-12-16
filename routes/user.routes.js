@@ -2,26 +2,17 @@ const router = require('express').Router();
 const userController = require('../controllers/user.controller');
 
 // Admin Routes for User
-router.get('/admin-read-users', userController.getAllUsers);
-
-// Admin Routes for Moderator
+router.get('/admin-read-users', userController.AllUsers);
 router.get('/admin-read-moderator', userController.getAllModerators);
-router.post('/admin-create-moderator', userController.createModerator);
-//router.post('/admin-update-moderator/:id', userController.updateModerator);
-//router.post('/admin-delete-moderator/:id', userController.deleteModerator);
 
 // Moderator Routes for Profil
-//router.get('/moderator-profile', userController.getProfile);
-//router.update('/moderator-update-profile/:id', userController.updateProfile);
-//router.update('/moderator-delete-profile/:id', userController.deleteProfile);
-
-
-// Moderator Routes for User
-//router.get('/moderator-read-users', userController.getAllUsers);
-
+router.get('/moderator-profile/:id', userController.ModeratorProfil);
+router.put('/moderator-update-profile/:id', userController.ModeratorUpdateProfil);
+router.delete('/moderator-delete-profile/:id', userController.ModeratorDeleteProfil);
 
 // User
-//router.get('/profile', userController.getProfile);
-//router.update('/update-profile/:id', userController.updateProfile);
-//router.delete('/delete-profile/:id', userController.deleteProfile);
+router.get('/profile/:id', userController.Profil);
+router.put('/update-profile/:id', userController.updateProfil);
+router.delete('/delete-profile/:id', userController.deleteProfil);
+
 module.exports = router;

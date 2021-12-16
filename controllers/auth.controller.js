@@ -16,7 +16,7 @@ module.exports.registerAdmin = async (req, res) => {
 			}
 			return res.status(201).json({
 				message: 'Compte administrateur créé',
-				admin: admin,
+				admin: admin._id,
 			});
 		});
 	} else {
@@ -28,6 +28,7 @@ module.exports.registerAdmin = async (req, res) => {
 // Login admin
 module.exports.loginAdmin = async (req, res) => {
 	const { email, password } = req.body;
+	const admin = new AdminModel({ email, password });
 	if (email === process.env.ADMIN_EMAIL && password === process.env.ADMIN_PASSWORD) {
 		return res.status(200).json({ message: 'Connexion réussie' });
 	} else {
@@ -80,14 +81,12 @@ module.exports.loginModerator = async (req, res) => {
 };
 // User register
 module.exports.registerUser = async (req, res) => {
-	const { email, password, } =
-		req.body;
+	const { email, password } = req.body;
 
 	try {
 		const user = await UserModel.create({
 			email,
 			password,
-		
 		});
 		res.status(201).json({ user: user._id });
 	} catch (error) {
