@@ -1,7 +1,7 @@
-const PostModel = require('../models/post.model');
-const UserModel = require('../models/user.model');
-const AdminModel = require('../models/admin.model');
 const ModeratorModel = require('../models/moderator.model');
+const UserModel = require('../models/user.model');
+const PostModel = require('../models/post.model');
+const AdminModel = require('../models/admin.model');
 
 // Post with admin
 module.exports.readAllPostAdmin = async (req, res) => {
@@ -37,21 +37,18 @@ module.exports.CreatePostAdmin = async (req, res) => {
 			type: req.body.type,
 			description: req.body.description,
 			address_alert: req.body.address_alert,
+			picture: req.file.path,
 		});
-		newPost.save((err, post) => {
-			if (err) {
-				return res.status(500).json({
-					message: 'Erreur lors de la création du post',
-				});
-			}
+		newPost.save(newPost);
+		if (newPost) {
 			return res.status(201).json({
-				message: 'Création du post réussie',
-				post,
+				message: 'Post créé',
+				post: newPost,
 			});
-		});
+		}
 	} else {
 		return res.status(401).json({
-			message: "Vous n'êtes pas autorisé à accéder à cette page",
+			message: 'Veuillez vous connecter pour créer un post',
 		});
 	}
 };
@@ -89,21 +86,18 @@ module.exports.createPostModerator = async (req, res) => {
 			type: req.body.type,
 			description: req.body.description,
 			address_alert: req.body.address_alert,
+			picture: req.file.path,
 		});
-		newPost.save((err, post) => {
-			if (err) {
-				return res.status(500).json({
-					message: 'Erreur lors de la création du post',
-				});
-			}
+		newPost.save(newPost);
+		if (newPost) {
 			return res.status(201).json({
-				message: 'Création du post réussie',
-				post,
+				message: 'Post créé',
+				post: newPost,
 			});
-		});
+		}
 	} else {
 		return res.status(401).json({
-			message: "Vous n'êtes pas autorisé à accéder à cette page",
+			message: 'Veuillez vous connecter pour créer un post',
 		});
 	}
 };
@@ -135,21 +129,17 @@ module.exports.createPost = async (req, res) => {
 			type: req.body.type,
 			description: req.body.description,
 			address_alert: req.body.address_alert,
+			picture: req.file.path,
 		});
-		newPost.save((err, post) => {
-			if (err) {
-				res.status(500).json({
-					message: 'Erreur lors de la création du post',
-				});
-			} else {
-				res.status(201).json({
-					message: 'Post créé',
-					post,
-				});
-			}
-		});
+		newPost.save(newPost);
+		if (newPost) {
+			return res.status(201).json({
+				message: 'Post créé',
+				post: newPost,
+			});
+		}
 	} else {
-		res.status(401).json({
+		return res.status(401).json({
 			message: 'Veuillez vous connecter pour créer un post',
 		});
 	}

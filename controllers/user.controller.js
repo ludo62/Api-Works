@@ -81,7 +81,6 @@ module.exports.ModeratorDeleteProfil = async (req, res) => {
 		message: 'Modérateur non trouvé',
 	});
 };
-
 // User
 module.exports.Profil = async (req, res) => {
 	const user = await UserModel.findById(req.params.id);

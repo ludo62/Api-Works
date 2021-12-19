@@ -8,16 +8,20 @@ const postRoutes = require('./routes/post.routes');
 const mongoose = require('mongoose');
 const connectDB = require('./config/db');
 
+
 const app = express();
 app.use(express.json());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(morgan('dev'));
 
+
+
 // Routes
 app.use('/', authRoutes);
 app.use('/', userRoutes);
 app.use('/', postRoutes);
+
 
 
 const PORT = process.env.PORT;
@@ -32,6 +36,5 @@ const start = async () => {
 	}
 };
 start();
-
 
 // TODO EMAIL CONFIGURATION AND PICTURE WITH ALERT
