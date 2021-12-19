@@ -1,7 +1,13 @@
+require('dotenv').config();
+const sgMail = require('@sendgrid/mail');
 const ModeratorModel = require('../models/moderator.model');
 const UserModel = require('../models/user.model');
 const PostModel = require('../models/post.model');
 const AdminModel = require('../models/admin.model');
+
+// sendgrid
+const SENDGRID_API_KEY = process.env.API_KEYS;
+sgMail.setApiKey(SENDGRID_API_KEY);
 
 // Post with admin
 module.exports.readAllPostAdmin = async (req, res) => {
@@ -39,19 +45,29 @@ module.exports.CreatePostAdmin = async (req, res) => {
 			address_alert: req.body.address_alert,
 			picture: req.file.path,
 		});
+		const msg = {
+			to: process.env.MESSAGE_TO,
+			from: process.env.MESSAGE_FROM,
+			subject: process.env.SUBJECT,
+			text: "Une alerte viens d'être créée",
+			html: "<strong>Une alerte viens d'être créée</strong>",
+		};
+		sgMail.send(msg);
 		newPost.save(newPost);
 		if (newPost) {
 			return res.status(201).json({
 				message: 'Post créé',
 				post: newPost,
+				msg,
 			});
 		}
 	} else {
 		return res.status(401).json({
-			message: 'Veuillez vous connecter pour créer un post',
+			message: "Vous n'êtes pas autorisé à accéder à cette page",
 		});
 	}
 };
+
 // post with moderator
 module.exports.readPostModerator = async (req, res) => {
 	const moderator = await ModeratorModel.findOne({ _id: req.params.id });
@@ -88,16 +104,25 @@ module.exports.createPostModerator = async (req, res) => {
 			address_alert: req.body.address_alert,
 			picture: req.file.path,
 		});
+		const msg = {
+			to: process.env.MESSAGE_TO,
+			from: process.env.MESSAGE_FROM,
+			subject: process.env.SUBJECT,
+			text: "Une alerte viens d'être créée",
+			html: "<strong>Une alerte viens d'être créée</strong>",
+		};
+		sgMail.send(msg);
 		newPost.save(newPost);
 		if (newPost) {
 			return res.status(201).json({
 				message: 'Post créé',
 				post: newPost,
+				msg,
 			});
 		}
 	} else {
 		return res.status(401).json({
-			message: 'Veuillez vous connecter pour créer un post',
+			message: "Vous n'êtes pas autorisé à accéder à cette page",
 		});
 	}
 };
@@ -131,11 +156,20 @@ module.exports.createPost = async (req, res) => {
 			address_alert: req.body.address_alert,
 			picture: req.file.path,
 		});
+		const msg = {
+			to: process.env.MESSAGE_TO,
+			from: process.env.MESSAGE_FROM,
+			subject: process.env.SUBJECT,
+			text: "Une alerte viens d'être créée",
+			html: "<strong>Une alerte viens d'être créée</strong>",
+		};
+		sgMail.send(msg);
 		newPost.save(newPost);
 		if (newPost) {
 			return res.status(201).json({
 				message: 'Post créé',
 				post: newPost,
+				msg,
 			});
 		}
 	} else {
