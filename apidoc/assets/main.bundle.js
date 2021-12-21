@@ -42728,7 +42728,7 @@ function init () {
     "groupTitle": "Post"
   },
   {
-    "type": "delete",
+    "type": "put",
     "url": "/moderator-delete-profile/",
     "title": "Suppression du profil du moderateur",
     "name": "DeleteModeratorProfile",
@@ -42764,8 +42764,8 @@ function init () {
     "groupTitle": "User"
   },
   {
-    "type": "get",
-    "url": "/delete-profile",
+    "type": "delete",
+    "url": "/delete-profile/",
     "title": "Suppression du profil de l'utilisateur",
     "name": "DeleteUserProfile",
     "group": "User",
@@ -43071,8 +43071,8 @@ function init () {
     "groupTitle": "User"
   },
   {
-    "type": "get",
-    "url": "/profile/",
+    "type": "put",
+    "url": "/update-profile/",
     "title": "Modification du profil de l'utilisateur",
     "name": "UpdateUserProfile",
     "group": "User",
@@ -43210,7 +43210,7 @@ function init () {
   "apidoc": "0.3.0",
   "generator": {
     "name": "apidoc",
-    "time": "Tue Dec 21 2021 19:45:57 GMT+0100 (heure normale d’Europe centrale)",
+    "time": "Tue Dec 21 2021 20:38:20 GMT+0100 (heure normale d’Europe centrale)",
     "url": "https://apidocjs.com",
     "version": "0.50.2"
   }

@@ -60,7 +60,7 @@ router.get('/moderator-profile/:id', userController.ModeratorProfil);
  */
 router.put('/moderator-update-profile/:id', userController.ModeratorUpdateProfil);
 /**
- * @api {delete} /moderator-delete-profile/ Suppression du profil du moderateur
+ * @api {put} /moderator-delete-profile/ Suppression du profil du moderateur
  * @apiName DeleteModeratorProfile
  * @apiGroup User
  *
@@ -82,7 +82,7 @@ router.delete('/moderator-delete-profile/:id', userController.ModeratorDeletePro
  */
 router.get('/profile/:id', userController.Profil);
 /**
- * @api {get} /profile/ Modification du profil de l'utilisateur
+ * @api {put} /update-profile/ Modification du profil de l'utilisateur
  * @apiName UpdateUserProfile
  * @apiGroup User
  *
@@ -96,7 +96,7 @@ router.get('/profile/:id', userController.Profil);
 router.put('/update-profile/:id', userController.updateProfil);
 
 /**
- * @api {get} /delete-profile Suppression du profil de l'utilisateur
+ * @api {delete} /delete-profile/ Suppression du profil de l'utilisateur
  * @apiName DeleteUserProfile
  * @apiGroup User
  *
