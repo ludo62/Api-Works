@@ -8,7 +8,6 @@ const userRoutes = require('./routes/user.routes');
 const postRoutes = require('./routes/post.routes');
 const mongoose = require('mongoose');
 const connectDB = require('./config/db');
-const path = require('path');
 
 const app = express();
 app.use(express.json());

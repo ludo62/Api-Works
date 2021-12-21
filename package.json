@@ -4,7 +4,7 @@
 	"description": "Api works",
 	"apidoc": {
 		"title": "Api works",
-		"url": "http://localhost:3500/"
+		"url": "https://api-works.herokuapp.com/"
 	},
 	"main": "server.js",
 	"scripts": {
