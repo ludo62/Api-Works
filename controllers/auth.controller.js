@@ -59,7 +59,7 @@ module.exports.registerModerator = async (req, res) => {
 			}
 			return res.status(201).json({
 				message: 'Compte modérateur créé',
-				moderator: moderator,
+				id: moderator._id,
 			});
 		});
 	} else {
@@ -71,14 +71,29 @@ module.exports.registerModerator = async (req, res) => {
 // Login Moderators
 module.exports.loginModerator = async (req, res) => {
 	const { email, password } = req.body;
+
 	if (!email || !password) {
 		return res.status(401).json({
 			message: 'Email ou mot de passe incorrect',
 		});
-	} else {
-		return res.status(200).json({ message: 'Connexion réussie' });
+	}
+	try {
+		const moderator = await ModeratorModel.findOne({ email }).select('-password');
+		if (!moderator) {
+			return res.status(401).json({
+				message: 'Veuillez vous connecter en tant que modérateur',
+			});
+		}
+		return res.status(200).json({
+			message: 'Connexion réussie',
+		});
+	} catch (error) {
+		return res.status(500).json({
+			message: 'Erreur lors de la connexion',
+		});
 	}
 };
+
 // User register
 module.exports.registerUser = async (req, res) => {
 	const { firstName, lastName, address, postalCode, city, phone, email, password } = req.body;

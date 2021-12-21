@@ -1,3 +1,4 @@
+// Importations des dépendances
 require('dotenv').config();
 const express = require('express');
 const morgan = require('morgan');
@@ -7,8 +8,7 @@ const userRoutes = require('./routes/user.routes');
 const postRoutes = require('./routes/post.routes');
 const mongoose = require('mongoose');
 const connectDB = require('./config/db');
-
-
+const path = require('path');
 
 const app = express();
 app.use(express.json());
@@ -16,15 +16,12 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(morgan('dev'));
 
-
-
-// Routes
+// Création des routes
 app.use('/', authRoutes);
 app.use('/', userRoutes);
 app.use('/', postRoutes);
 
-
-
+// Lancement du serveur
 const PORT = process.env.PORT;
 
 const start = async () => {
@@ -37,5 +34,3 @@ const start = async () => {
 	}
 };
 start();
-
-// TODO EMAIL CONFIGURATION AND PICTURE WITH ALERT
