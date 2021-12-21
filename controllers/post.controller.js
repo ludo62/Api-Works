@@ -43,8 +43,8 @@ module.exports.CreatePostAdmin = async (req, res) => {
 			type: req.body.type,
 			description: req.body.description,
 			address_alert: req.body.address_alert,
-			picture: req.file.path,
 		});
+		newPost.save(newPost);
 		const msg = {
 			to: process.env.MESSAGE_TO,
 			from: process.env.MESSAGE_FROM,
@@ -53,7 +53,6 @@ module.exports.CreatePostAdmin = async (req, res) => {
 			html: "<strong>Une alerte viens d'être créée</strong>",
 		};
 		sgMail.send(msg);
-		newPost.save(newPost);
 		if (newPost) {
 			return res.status(201).json({
 				message: 'Post créé',
@@ -102,8 +101,8 @@ module.exports.createPostModerator = async (req, res) => {
 			type: req.body.type,
 			description: req.body.description,
 			address_alert: req.body.address_alert,
-			picture: req.file.path,
 		});
+		newPost.save(newPost);
 		const msg = {
 			to: process.env.MESSAGE_TO,
 			from: process.env.MESSAGE_FROM,
@@ -112,7 +111,7 @@ module.exports.createPostModerator = async (req, res) => {
 			html: "<strong>Une alerte viens d'être créée</strong>",
 		};
 		sgMail.send(msg);
-		newPost.save(newPost);
+
 		if (newPost) {
 			return res.status(201).json({
 				message: 'Post créé',
@@ -154,8 +153,8 @@ module.exports.createPost = async (req, res) => {
 			type: req.body.type,
 			description: req.body.description,
 			address_alert: req.body.address_alert,
-			picture: req.file.path,
 		});
+		newPost.save(newPost);
 		const msg = {
 			to: process.env.MESSAGE_TO,
 			from: process.env.MESSAGE_FROM,
@@ -164,7 +163,6 @@ module.exports.createPost = async (req, res) => {
 			html: "<strong>Une alerte viens d'être créée</strong>",
 		};
 		sgMail.send(msg);
-		newPost.save(newPost);
 		if (newPost) {
 			return res.status(201).json({
 				message: 'Post créé',

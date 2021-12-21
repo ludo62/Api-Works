@@ -1,19 +1,6 @@
 // Importation des modules
 const router = require('express').Router();
 const postController = require('../controllers/post.controller');
-const multer = require('multer');
-
-// Configuration de multer
-const fileStorageEngine = multer.diskStorage({
-	destination: (req, file, cb) => {
-		cb(null, './uploads');
-	},
-	filename: (req, file, cb) => {
-		cb(null, Date.now() + '--' + file.originalname);
-	},
-});
-
-const upload = multer({ storage: fileStorageEngine });
 
 // Routes pour l'administrateur pour voir tous les posts et créer un post
 /**
@@ -42,12 +29,11 @@ router.get('/admin-read/:id', postController.readAllPostAdmin);
  * @apiParam {String} type Type d'alerte
  * @apiParam {String} description Description de l'alerte
  * @apiParam {String} address_alerte Addresse de l'alerte
- * @apiParam {String} picture Photo de l'alerte
  *
  * @apiSuccess {String} message Message de status
  * @apiSuccess {Object} post Post créé
  */
-router.post('/admin-create/:id', upload.single('picture'), postController.CreatePostAdmin);
+router.post('/admin-create/:id', postController.CreatePostAdmin);
 
 // Route pour le moderateur pour voir, creer un post
 /**
@@ -76,12 +62,11 @@ router.get('/moderator-read/:id', postController.readPostModerator);
  * @apiParam {String} type Type d'alerte
  * @apiParam {String} description Description de l'alerte
  * @apiParam {String} address_alerte Addresse de l'alerte
- * @apiParam {String} picture Photo de l'alerte
  *
  * @apiSuccess {String} message Message de status
  * @apiSuccess {Object} post Post créé
  */
-router.post('/moderator-create/:id', upload.single('picture'), postController.createPostModerator);
+router.post('/moderator-create/:id', postController.createPostModerator);
 
 // Route pour l'utilisateur pour voir, creer un post
 /**
@@ -110,11 +95,10 @@ router.get('/read/:id', postController.readPost);
  * @apiParam {String} type Type d'alerte
  * @apiParam {String} description Description de l'alerte
  * @apiParam {String} address_alerte Addresse de l'alerte
- * @apiParam {String} picture Photo de l'alerte
  *
  * @apiSuccess {String} message Message de status
  * @apiSuccess {Object} post Post créé
  */
-router.post('/post/:id', upload.single('picture'), postController.createPost);
+router.post('/post/:id', postController.createPost);
 
 module.exports = router;
