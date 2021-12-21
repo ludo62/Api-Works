@@ -4,7 +4,7 @@
 	"description": "Api works",
 	"apidoc": {
 		"title": "Api works",
-		"url": "https://dashboard.heroku.com/apps/api-works/deploy/github"
+		"url": "https://api-works.herokuapp.com/"
 	},
 	"main": "server.js",
 	"scripts": {
