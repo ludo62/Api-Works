@@ -1,6 +1,18 @@
 // Importation des modules
 const router = require('express').Router();
 const postController = require('../controllers/post.controller');
+const multer = require('multer');
+
+const fileStorageEngine = multer.diskStorage({
+	destination: (req, file, cb) => {
+		cb(null, 'uploads');
+	},
+	filename: (req, file, cb) => {
+		cb(null, Date.now() + '--' + file.originalname);
+	},
+});
+
+const upload = multer({ storage: fileStorageEngine });
 
 // Routes pour l'administrateur pour voir tous les posts et créer un post
 /**
@@ -33,7 +45,7 @@ router.get('/admin-read/:id', postController.readAllPostAdmin);
  * @apiSuccess {String} message Message de status
  * @apiSuccess {Object} post Post créé
  */
-router.post('/admin-create/:id', postController.CreatePostAdmin);
+router.post('/admin-create/:id', upload.single('picture'), postController.CreatePostAdmin);
 
 // Route pour le moderateur pour voir, creer un post
 /**
@@ -66,7 +78,7 @@ router.get('/moderator-read/:id', postController.readPostModerator);
  * @apiSuccess {String} message Message de status
  * @apiSuccess {Object} post Post créé
  */
-router.post('/moderator-create/:id', postController.createPostModerator);
+router.post('/moderator-create/:id', upload.single('picture'), postController.createPostModerator);
 
 // Route pour l'utilisateur pour voir, creer un post
 /**
@@ -99,6 +111,6 @@ router.get('/read/:id', postController.readPost);
  * @apiSuccess {String} message Message de status
  * @apiSuccess {Object} post Post créé
  */
-router.post('/post/:id', postController.createPost);
+router.post('/post/:id', upload.single('picture'), postController.createPost);
 
 module.exports = router;

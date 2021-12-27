@@ -43,6 +43,7 @@ module.exports.CreatePostAdmin = async (req, res) => {
 			type: req.body.type,
 			description: req.body.description,
 			address_alert: req.body.address_alert,
+			picture: req.file.path,
 		});
 		const msg = {
 			to: process.env.MESSAGE_TO,
@@ -101,6 +102,7 @@ module.exports.createPostModerator = async (req, res) => {
 			type: req.body.type,
 			description: req.body.description,
 			address_alert: req.body.address_alert,
+			picture: req.file.path,
 		});
 		const msg = {
 			to: process.env.MESSAGE_TO,
@@ -152,6 +154,7 @@ module.exports.createPost = async (req, res) => {
 			type: req.body.type,
 			description: req.body.description,
 			address_alert: req.body.address_alert,
+			picture: req.file.path,
 		});
 		const msg = {
 			to: process.env.MESSAGE_TO,
