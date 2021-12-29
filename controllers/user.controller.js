@@ -51,13 +51,13 @@ module.exports.ModeratorProfil = async (req, res) => {
 	});
 };
 module.exports.ModeratorUpdateProfil = async (req, res) => {
-	const { name, address, postalCode, city, pgone, email, password } = req.body;
+	const { name, address, postalCode, city, phone, email, password } = req.body;
 	const updateModerator = await ModeratorModel.findByIdAndUpdate(req.params.id, {
 		name,
 		address,
 		postalCode,
 		city,
-		pgone,
+		phone,
 		email,
 		password,
 	});
