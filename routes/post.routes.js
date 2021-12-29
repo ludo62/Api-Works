@@ -41,6 +41,9 @@ router.get('/admin-read/:id', postController.readAllPostAdmin);
  * @apiParam {String} type Type d'alerte
  * @apiParam {String} description Description de l'alerte
  * @apiParam {String} address_alerte Addresse de l'alerte
+ * @apiParam {String} date_alerte Date de l'alerte
+ * @apiParam {String} horaire_alerte Horaire de l'alerte
+ * @apiParam {File} picture Photo de l'alerte
  *
  * @apiSuccess {String} message Message de status
  * @apiSuccess {Object} post Post créé
@@ -74,6 +77,9 @@ router.get('/moderator-read/:id', postController.readPostModerator);
  * @apiParam {String} type Type d'alerte
  * @apiParam {String} description Description de l'alerte
  * @apiParam {String} address_alerte Addresse de l'alerte
+ * @apiParam {String} date_alerte Date de l'alerte
+ * @apiParam {String} horaire_alerte Horaire de l'alerte
+ * @apiParam {File} picture Photo de l'alerte
  *
  * @apiSuccess {String} message Message de status
  * @apiSuccess {Object} post Post créé
@@ -107,6 +113,9 @@ router.get('/read/:id', postController.readPost);
  * @apiParam {String} type Type d'alerte
  * @apiParam {String} description Description de l'alerte
  * @apiParam {String} address_alerte Addresse de l'alerte
+ * @apiParam {String} date_alerte Date de l'alerte
+ * @apiParam {String} horaire_alerte Horaire de l'alerte
+ * @apiParam {File} picture Photo de l'alerte
  *
  * @apiSuccess {String} message Message de status
  * @apiSuccess {Object} post Post créé

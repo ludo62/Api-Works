@@ -38,6 +38,14 @@ const PostSchema = new mongoose.Schema(
 			type: String,
 			required: true,
 		},
+		date_alert: {
+			type: String,
+			required: true,
+		},
+		horaire_alert: {
+			type: String,
+			required: true,
+		},
 		picture: {
 			type: String,
 			required: true,

@@ -43,6 +43,8 @@ module.exports.CreatePostAdmin = async (req, res) => {
 			type: req.body.type,
 			description: req.body.description,
 			address_alert: req.body.address_alert,
+			date_alert: req.body.date_alert,
+			horaire_alert: req.body.horaire_alert,
 			picture: req.file.path,
 		});
 		const msg = {
@@ -102,6 +104,8 @@ module.exports.createPostModerator = async (req, res) => {
 			type: req.body.type,
 			description: req.body.description,
 			address_alert: req.body.address_alert,
+			date_alert: req.body.date_alert,
+			horaire_alert: req.body.horaire_alert,
 			picture: req.file.path,
 		});
 		const msg = {
@@ -154,6 +158,8 @@ module.exports.createPost = async (req, res) => {
 			type: req.body.type,
 			description: req.body.description,
 			address_alert: req.body.address_alert,
+			date_alert: req.body.date_alert,
+			horaire_alert: req.body.horaire_alert,
 			picture: req.file.path,
 		});
 		const msg = {
