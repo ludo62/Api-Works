@@ -2,20 +2,6 @@
 const router = require('express').Router();
 const authController = require('../controllers/auth.controller');
 /**
- * @api {post} /register-admin Enregistrement de l'administrateur
- * @apiName RegisterAdmin
- * @apiGroup Auth
- *
- * @apiParam {String} email Email de l'administrateur
- * @apiParam {String} password Mot de passe de l'administrateur
- *
- * @apiSuccess {String} message Message de status
- * @apiSuccess {String} id Identifiant de l'administrateur
- *
- */
-// Routes pour l'administrateur pour créer son compte et se connecter
-router.post('/register-admin', authController.registerAdmin);
-/**
  * @api {post} /login-admin Connexion de l'administrateur
  * @apiName LoginAdmin
  * @apiGroup Auth

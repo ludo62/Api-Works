@@ -1,28 +1,24 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const { isEmail } = require('validator');
+const jwt = require('jsonwebtoken');
 
 const ModeratorSchema = new mongoose.Schema({
-	name: {
+	firstName: {
 		type: String,
 		required: true,
-		trim: true,
-		minlength: 3,
-		maxlength: 50,
+	},
+	lastName: {
+		type: String,
+		required: true,
 	},
 	address: {
 		type: String,
 		required: true,
-		trim: true,
-		minlength: 3,
-		maxlength: 50,
 	},
-	postalCode: {
+	zipCode: {
 		type: String,
 		required: true,
-		trim: true,
-		minlength: 3,
-		maxlength: 50,
 	},
 	city: {
 		type: String,
@@ -31,9 +27,6 @@ const ModeratorSchema = new mongoose.Schema({
 	phone: {
 		type: String,
 		required: true,
-		trim: true,
-		minlength: 3,
-		maxlength: 50,
 	},
 	email: {
 		type: String,
@@ -61,6 +54,12 @@ ModeratorSchema.pre('save', async function (next) {
 
 ModeratorSchema.methods.matchPasswords = async function (password) {
 	return await bcrypt.compare(password, this.password);
+};
+
+ModeratorSchema.methods.getSignedToken = function () {
+	return jwt.sign({ id: this._id }, process.env.JWT_SECRET, {
+		expiresIn: process.env.JWT_EXPIRE,
+	});
 };
 
 module.exports = mongoose.model('Moderator', ModeratorSchema);
