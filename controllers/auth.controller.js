@@ -29,7 +29,7 @@ module.exports.loginAdmin = async (req, res) => {
 
 // Register Moderators
 module.exports.registerModerator = async (req, res) => {
-	const { firstName, lastName, address, zipCode, city, phone, email, password } = req.body;
+	const { email, password } = req.body;
 	const token = jwt.sign(email, password);
 	const moderator = await ModeratorModel.findOne({ email });
 	if (moderator) {
@@ -38,12 +38,6 @@ module.exports.registerModerator = async (req, res) => {
 		});
 	}
 	const newModerator = new ModeratorModel({
-		firstName,
-		lastName,
-		address,
-		zipCode,
-		city,
-		phone,
 		email,
 		password,
 	});
@@ -72,7 +66,7 @@ module.exports.loginModerator = async (req, res) => {
 
 // User register
 module.exports.registerUser = async (req, res) => {
-	const { firstName, lastName, address, zipCode, city, phone, email, password } = req.body;
+	const { email, password } = req.body;
 	const token = jwt.sign(email, password);
 	const user = await UserModel.findOne({ email });
 	if (user) {
@@ -81,12 +75,6 @@ module.exports.registerUser = async (req, res) => {
 		});
 	}
 	const newUser = new UserModel({
-		firstName,
-		lastName,
-		address,
-		zipCode,
-		city,
-		phone,
 		email,
 		password,
 	});
@@ -109,6 +97,6 @@ module.exports.loginUser = async (req, res) => {
 		});
 	}
 	return res.status(401).json({
-		message: "Un problème est survenu lors de la connexion",
+		message: 'Un problème est survenu lors de la connexion',
 	});
 };

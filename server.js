@@ -9,6 +9,7 @@ const postRoutes = require('./routes/post.routes');
 const mongoose = require('mongoose');
 const connectDB = require('./config/db');
 
+
 const app = express();
 app.use(express.json());
 app.use(bodyParser.json());
@@ -19,7 +20,6 @@ app.use(morgan('dev'));
 app.use('/', authRoutes);
 app.use('/', userRoutes);
 app.use('/', postRoutes);
-
 
 // Lancement du serveur
 const PORT = process.env.PORT;
