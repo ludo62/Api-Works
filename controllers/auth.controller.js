@@ -66,23 +66,29 @@ module.exports.loginModerator = async (req, res) => {
 
 // User register
 module.exports.registerUser = async (req, res) => {
-	const { email, password } = req.body;
-	const token = jwt.sign(email, password);
-	const user = await UserModel.findOne({ email });
-	if (user) {
-		return res.status(400).json({
-			message: 'Votre compte est déjà enregistré',
+	try {
+		const { email, password } = req.body;
+		const token = jwt.sign(email, password);
+		const user = await UserModel.findOne({ email });
+		if (user) {
+			return res.status(400).json({
+				message: 'Votre compte est déjà enregistré',
+			});
+		}
+		const newUser = new UserModel({
+			email,
+			password,
+		});
+		await newUser.save();
+		return res.status(200).json({
+			message: 'Compte créé',
+			token,
+		});
+	} catch (error) {
+		return res.status(500).json({
+			message: 'Un problème est survenu lors de la création du compte',
 		});
 	}
-	const newUser = new UserModel({
-		email,
-		password,
-	});
-	await newUser.save();
-	return res.status(200).json({
-		message: 'Compte créé',
-		token,
-	});
 };
 
 // User login
